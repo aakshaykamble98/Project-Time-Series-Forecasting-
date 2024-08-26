@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 import base64
+import os
 import warnings
 warnings.filterwarnings(('ignore'))
 
@@ -44,9 +45,15 @@ st.title('Forecasting Hourly Energy Consumption :chart_with_upwards_trend:')
 subtitle = '<p style="font-family:sans-serif; color:green; font-size: 25px; ">Enter data to get forecasted value of energy consumption.</p>'
 st.markdown(subtitle, unsafe_allow_html=True)
 
+# Base directory of the current script
+base_dir = os.path.dirname(__file__)
 
-load = open(r'D:\ExcelR\Data Science\Project (Forecasting of energy consuption)\Ak Deployment\xg_model_values.pkl','rb')
-model = pickle.load(load)
+# Construct the full path to the pickle file
+pickle_file_path = os.path.join(base_dir, 'xg_model_values.pkl')
+
+# Load the model from the pickle file
+with open(pickle_file_path, 'rb') as load:
+    model = pickle.load(load)
 
 #Creating function for prediction
 
@@ -66,7 +73,7 @@ def main():
     set_bg_hack_url()
     
     st.subheader("Welcome to the Energy Consumption Forecasting Tool!.  Let's begin!")
-    subtitle = '<p style="font-family:sans-serif; color:black; font-size: 18px; ">Enter data to get forecasted value of energy consumption: </p>'
+    subtitle = '<p style="font-family:sans-serif; color:black; font-size: 17px; ">Enter data to get forecasted value of energy consumption: </p>'
     st.markdown(subtitle, unsafe_allow_html=True)
     
     #About buttons
@@ -324,8 +331,7 @@ def main():
              warn = """<p style="font-family:sans-serif; color:Red; font-size: 15px; ">You have not uploaded CSV file!</p>"""
              st.markdown(warn, unsafe_allow_html=True) 
         
-        
-        
+         
         
 
 if __name__ == '__main__':
